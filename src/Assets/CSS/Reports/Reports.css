@@ -1,0 +1,113 @@
+.reportTypeButton{
+    background-color: transparent !important;
+    border: 2px solid black !important;
+    margin-right: 35px !important;
+    padding-top: 25px !important;
+    padding-right: 35px !important;
+    padding-left: 35px !important;
+    padding-bottom: 15px !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+.reportTypeButtonGeneralReport{
+    background-color: transparent !important;
+    border: 2px solid black !important;
+    margin-right: 35px !important;
+    padding-top: 25px !important;
+    padding-right: 30px !important;
+    padding-left: 30px !important;
+    padding-bottom: 15px !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.btn.download-button {
+    width: 140px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.download-button:hover {
+    width: 140px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.download-button:focus {
+    width: 140px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.download-button:active {
+    width: 140px;
+    background-color: #038866 !important; /* Override React Boostrap color*/
+    border-color: #038866 !important;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+
+.reportTypeText{
+    color: black !important;
+    margin-bottom: 0 !important;
+    margin-top: 12px !important;
+    font-size: 12px !important;
+}
+
+.reportItemHeading{
+    font-size: 20px;
+    margin-top: 45px;
+}
+
+.reportFormatContainer{
+    background-color: transparent !important;
+    border: 2px solid black !important;
+    margin-right: 45px !important;
+    height: 90px !important;
+    padding-top:5px !important;
+    padding-right:15px !important;
+    padding-left:15px !important;
+    padding-bottom:5px !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4) !important
+}
+
+
+
+.reportFormatText{
+    color: black !important;
+    font-weight: 500 !important;
+    margin-bottom: 0 !important;
+    margin-top: 8px !important;
+    font-size: 12px !important;
+}
+
+.selectedButton{
+    background-color: #fefffe !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid #06AD85 !important;
+}

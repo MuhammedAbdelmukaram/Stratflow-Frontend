@@ -1,0 +1,40 @@
+.card_plans{
+    font-family: Inter, sans-serif;
+    line-height: normal;
+}
+
+.features{
+    font-family: 'Cabin', sans-serif;
+}
+
+.button{
+    font-family: 'Cabin', sans-serif;
+}
+
+.faq-text{
+    margin-top: 4px;
+    font-size: 12px;
+
+}
+
+.faq-heading{
+    margin-top: 6px;
+}
+
+.faq-question-container{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.faq-left-column{
+    margin-top: 65px;
+}
+
+.faq-right-column{
+    margin-top: 65px;
+}
+
+.faq-all-questions{
+    display: flex;
+}

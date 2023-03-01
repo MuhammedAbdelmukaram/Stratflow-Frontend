@@ -1,0 +1,192 @@
+
+
+
+.page-link {
+    color: #000000 !important;
+}
+.page-link.active, .active > .page-link{
+    background-color: #06AD85 !important;
+    border-color: #06AD85 !important;
+    color: #fff !important;
+}
+.btn.btn-create-flow-button {
+    width: 140px;
+    position: absolute;
+    top: 90px;
+    right: 285px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.btn-create-flow-button:hover {
+    width: 140px;
+    position: absolute;
+    top: 90px;
+    right: 285px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.btn-create-flow-button:focus {
+    width: 140px;
+    position: absolute;
+    top: 90px;
+    right: 285px;
+    background-color: #06AD85 ; /* Override React Boostrap color*/
+    border-color: #06AD85 ;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.btn.btn-create-flow-button:active {
+    width: 140px;
+    position: absolute;
+    top: 90px;
+    right: 285px;
+    background-color: #038866 !important; /* Override React Boostrap color*/
+    border-color: #038866 !important;
+    margin-top: 28px;
+    float: right;
+    font-size: 14px;
+    height: 36px;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 0;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.modal-hr {
+    width: 150px;
+    margin: 0;
+    background-color: #ADADAD;
+}
+
+.modal-note {
+    margin-top: 6px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.image-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.image {
+    height: 250px;
+    width: 250px;
+}
+
+.image-text{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.flows-search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+.flows-search
+{
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    padding: 5px 10px;
+    width: 35%;
+}
+
+
+.flows-filter-all-flows {
+    font-size: 12px !important;
+    background-color: #F9F9F9 !important;
+    color: #666666 !important;
+    border-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    line-height: 1.5 !important;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid #BEBEBE !important;
+    height: 28px !important;
+    width: 87px !important;
+    justify-content: center !important;
+}
+
+.flows-filter-all-flows.active {
+    background-color: #313131 !important;
+    color: #fff !important;
+    border: 1px solid #ced4da !important;
+}
+
+
+.flows-filter-active{
+    font-size: 12px !important;
+    background-color: #F9F9F9 !important;
+    color: #666666 !important;
+    border-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    line-height: 1.5 !important;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid #BEBEBE !important;
+    height: 28px !important;
+    width: 74px !important;
+    justify-content: center !important;
+}
+
+.flows-filter-active.active{
+    background-color: #313131 !important;
+    color: #fff !important;
+    border: 1px solid #ced4da !important;
+}
+
+.flows-filter-triggered{
+    font-size: 12px !important;
+    background-color: #F9F9F9 !important;
+    color: #666666 !important;
+    border-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    line-height: 1.5 !important;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid #BEBEBE !important;
+    height: 28px !important;
+    width: 96px !important;
+    justify-content: center !important;
+}
+
+.flows-filter-triggered.active{
+    background-color: #313131 !important;
+    color: #fff !important;
+    border: 1px solid #ced4da !important;
+}

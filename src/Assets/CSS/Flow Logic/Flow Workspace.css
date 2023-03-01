@@ -1,0 +1,23 @@
+.menu {
+    display: none;
+    position: absolute;
+    bottom: 30px;
+    right: -55px;
+    box-shadow: 1px 3px 8px 1px rgba(0,0,0,0.24);
+    background-color: white;
+    padding: 5px;
+    border-radius: 12px;
+    line-height: normal;
+}
+
+.show {
+    display: block;
+}
+
+
+/* METRIC MENU */
+
+.selected {
+    color: #06AD85;
+    font-weight: bold;
+}

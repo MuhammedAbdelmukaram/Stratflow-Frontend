@@ -1,0 +1,35 @@
+.wrapper {
+    position: relative;
+    height: 36px;
+    width: 480px;
+}
+
+.line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: #767676;
+}
+
+.line1 {
+    top: 0;
+    height: 50%;
+}
+
+.line2 {
+    bottom: 0;
+    height: calc(50% - 4px); /* Decrease height by 4px to fit within circle */
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #767676;
+    background-color: white;
+}
