@@ -78,7 +78,7 @@ const FlowWorkspace = (props) => {
             console.log("Updated state:", state);
         }
     }, []);
-
+/**/
 // Helper function to get the parent node at a given index
     const getParentNode = (node, index) => {
         if (index === 0) {
