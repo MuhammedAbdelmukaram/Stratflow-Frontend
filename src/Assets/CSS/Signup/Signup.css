@@ -1,0 +1,102 @@
+.signup-step{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-label{
+    font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 12px !important;
+}
+
+.form-control{
+    font-size: 14px;
+    border-radius: 6px !important;
+    height: 34px;
+    border: 1px solid #e0e0e0;
+    padding: 0px 12px;
+}
+
+.form-control::placeholder{
+    font-size: 14px !important;
+    color: #bbbbbb !important;
+}
+
+.signup-headline{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form-wrapper{
+    width: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-wrapper-step-3{
+    width: 330px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tiktok-connect-account-button{
+    width: 100% !important;
+    height: 58px !important;
+    background-color: #fff !important;
+    color: #000000 !important;
+    border: 0.5px solid #6e6e6e !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding:0px 20px !important;
+}
+
+.tiktok-icon{
+    height:24px;
+    margin-right:10px
+}
+
+
+.form-check{
+    display: flex;
+    align-items: center;
+    height: 38px;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.signup-small-text{
+    margin-top:10px;
+    font-size: 11px;
+    text-align: left;
+}
+
+.logo{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 100px;
+}
+
+.signup-button{
+    width: 100%;
+    height: 55px;
+    background-color: #06AD85 !important;
+    border-color: #06AD85 !important;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+

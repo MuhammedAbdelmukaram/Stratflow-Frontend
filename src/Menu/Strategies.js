@@ -4,12 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Card, Button, Modal} from 'react-bootstrap';
 import "../Assets/CSS/Strategies/Strategies.css";
+import { useNavigate } from 'react-router-dom';
+
 
 function CreateFlow() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const navigate = useNavigate();
 
     return (
         <>
@@ -24,7 +27,7 @@ function CreateFlow() {
 
                     <div style={{display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
                         <div>
-                            <Button variant="text" size="small"  style={{display: "flex", flexDirection: "row", justifyContent:"space-between"}}>
+                            <Button  onClick={() => navigate('../flowlogic', { replace: true })} variant="text" size="small"  style={{display: "flex", flexDirection: "row", justifyContent:"space-between"}}>
                                 <img
                                     src={require("../Assets/Strategies Assets/CreateScratch.png")}
                                     alt="CreateScratch"

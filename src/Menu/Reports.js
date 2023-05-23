@@ -2,6 +2,7 @@ import React, {useState}from 'react';
 import {Button, Container, Form, Row} from "react-bootstrap";
 import "../Assets/CSS/Reports/Reports.css";
 import { DateRangePicker } from 'react-date-range';
+import ReportDatePicker from "./Reports Components/Date Picker";
 
 
 
@@ -168,6 +169,8 @@ class Reports extends React.Component{
 
 
                 <p className={"reportItemHeading"}>Select Timeframe</p>
+
+                <ReportDatePicker/>
 
 
                 <p className={"reportItemHeading"}>Select Format</p>

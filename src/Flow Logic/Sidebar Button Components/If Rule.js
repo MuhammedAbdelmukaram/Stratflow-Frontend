@@ -4,6 +4,7 @@ import { useDrag } from 'react-dnd';
 const IfRule = ({ fromSidebar }) => {
     const [{ isDragging }, drag] = useDrag({
         type: 'IF_RULE',
+        item: { name: 'IF_RULE' },
         canDrag: () => fromSidebar,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -11,7 +12,6 @@ const IfRule = ({ fromSidebar }) => {
 
     });
 
-    const backgroundColor = isDragging ? 'gray' : 'white';
 
     return (
         <div
@@ -19,7 +19,6 @@ const IfRule = ({ fromSidebar }) => {
             style={{
                 height: 60,
                 width: 150,
-                backgroundColor,
                 border: '1px solid black',
                 display: 'flex',
                 marginTop: 10,

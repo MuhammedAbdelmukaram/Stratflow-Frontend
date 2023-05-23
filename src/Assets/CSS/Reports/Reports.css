@@ -111,3 +111,26 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8) !important;
     border: 2px solid #06AD85 !important;
 }
+
+.date-picker .rs-picker-toggle:hover,
+.date-picker .rs-picker-toggle:focus,
+.date-picker .rs-picker-toggle:focus-visible,
+.date-picker .rs-picker-toggle:focus-within,
+.date-picker .rs-picker-toggle:visited,
+.date-picker .rs-picker-toggle:active,
+.date-picker .rs-picker-toggle:target
+.date-picker .rs-picker-toggle::selection{
+    border-color: #06AD85 !important ;
+}
+.date-picker .rs-picker-toggle:focus {
+    box-shadow: 0 0 0 0.5rem #06AD85 !important  ;
+}
+.date-picker .rs-picker-menu-date-active {
+    background-color: #06AD85 !important  ;
+}
+
+.rs-picker-menu .rs-calendar .rs-calendar-table-cell-content {
+    padding-left: 0;
+    padding-right: 0;
+    display: inline-block;
+}

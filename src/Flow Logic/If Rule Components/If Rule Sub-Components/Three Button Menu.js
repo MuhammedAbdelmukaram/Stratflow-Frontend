@@ -5,14 +5,14 @@ function ThreeButtonMenu({ rule }) {
     return (
         <div style={{ position: 'relative' }}>
             <img
-                src={require('../../Assets/FlowLogic Assets/FlowMenu Icon.png')}
+                src={require('../../../Assets/FlowLogic Assets/FlowMenu Icon.png')}
                 alt=""
                 style={{
                     width: 20,
                     height: 20,
                     cursor: 'pointer',
                     position: 'absolute',
-                    right: -85,
+                    right: -49,
                     bottom: 10,
                     marginRight: 10,
                     marginTop: 10,

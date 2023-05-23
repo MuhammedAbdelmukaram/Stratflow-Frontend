@@ -8,6 +8,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../Assets/CSS/Flows/Flows.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    addFlow,
+    removeFlow,
+    updateFlow,
+    setSearchTerm,
+    setFilter,
+    setFlows,
+    setGroups,
+    setSelectedGroup,
+    setCurrentPage,
+    toggleActive,
+} from '../../src/FlowsSlice';
 
 
 const EditButton = ({flow, onRename}) => {
@@ -106,10 +119,18 @@ const DuplicateButton = () => {
     );
 };
 
-const FlowDeleteButton = () => {
+const FlowDeleteButton = (id) => {
     const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
 
     const handleClose = () => setShow(false);
+
+
+    const handleDelete = () => {
+        dispatch(removeFlow(id.id)); // Dispatch the removeFlow action
+
+    };
+
     const handleShow = () => setShow(true);
 
     return (
@@ -144,7 +165,7 @@ const FlowDeleteButton = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={handleClose}>
+                    <Button variant="danger" onClick={handleDelete}>
                         Delete
                     </Button>
                 </Modal.Footer>
@@ -158,6 +179,7 @@ function CreateFlow() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     const navigate = useNavigate();
 
 
@@ -203,23 +225,17 @@ function CreateFlow() {
     );
 }
 const Flows = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filter, setFilter] = useState('All rules');
-    const [flows, setFlows] = useState([
-        { group: 4, id: 1, name: 'Flow 1', active: true, triggered: false },
-        { group: 2,id: 2, name: 'Flow 2', active: false, triggered: true },
-        { group: 2,id: 3, name: 'Flow 3', active: true, triggered: false },
-        { group: 3,id: 4, name: 'Flow 3', active: true, triggered: false },
-        { group: 4,id: 5, name: 'Flow 6', active: true, triggered: true },
-        { group: 1, id: 6, name: 'Flow 1', active: true, triggered: false },
-        { group: 1, id: 7, name: 'Flow 1', active: true, triggered: false },
-    ]);
 
-    // Get all unique groups from flows
-    const groups = [...new Set(flows.map(flow => flow.group))];
+    const dispatch = useDispatch();
 
-    // State to keep track of selected group
-    const [selectedGroup, setSelectedGroup] = useState(null);
+    const searchTerm = useSelector(state => state.flows.searchTerm);
+    const filter = useSelector(state => state.flows.filter);
+    const flows = useSelector(state => state.flows.flows);
+    const selectedGroup = useSelector(state => state.flows.selectedGroup);
+    const currentPage = useSelector(state => state.flows.currentPage);
+
+
+
 
     const filteredFlows = flows.filter((flow) => {
         if (selectedGroup === null) {
@@ -247,7 +263,7 @@ const Flows = () => {
         flow.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const [currentPage, setCurrentPage] = useState(1);
+
     const [flowsPerPage] = useState(15);
 
     const indexOfLastFlow = currentPage * flowsPerPage;
@@ -255,34 +271,34 @@ const Flows = () => {
     const currentFlows = searchedFlows.slice(indexOfFirstFlow, indexOfLastFlow);
 
     const handleClick = (pageNum) => {
-        setCurrentPage(pageNum);
+        dispatch(setCurrentPage(pageNum));
     };
 
     const handleFilterChange = (value) => {
-        setFilter(value);
-        setCurrentPage(1); // Reset the current page when filter changes
+        dispatch(setFilter(value));
+        dispatch(setCurrentPage(1)); // Reset the current page when filter changes
     };
 
     const handleStatusChange = (id) => {
-        setFlows(
+        dispatch(setFlows(
             flows.map((flow) => {
                 if (flow.id === id) {
                     return { ...flow, active: !flow.active };
                 }
                 return flow;
             })
-        );
+        ));
     };
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-        setSelectedGroup(null); // Reset the selected group when search term changes
-        setCurrentPage(1);
+        dispatch(setSearchTerm(e.target.value));
+        dispatch(setSelectedGroup(null)); // Reset the selected group when search term changes
+        dispatch(setCurrentPage(1));
     };
 
     const handleGroupFilterChange = (group) => {
-        setSelectedGroup(group);
-        setCurrentPage(1); // Reset the current page when group filter changes
+        dispatch(setSelectedGroup(group));
+        dispatch(setCurrentPage(1)); // Reset the current page when group filter changes
     };
 
     const tooltip = (
@@ -291,6 +307,9 @@ const Flows = () => {
            Triggered in the past 24 hours
         </Tooltip>
     );
+
+    const uniqueGroups = [...new Set(flows.map(flow => flow.group))];
+
 
     return (
         <Container>
@@ -304,7 +323,8 @@ const Flows = () => {
                             backgroundColor:"transparent",
                             color:"black",
                             border:"none",
-                            width:"100%"
+                            width:"100%",
+                            textAlign:"left"
                         }}
                         type="radio"
                         variant="default"
@@ -315,12 +335,13 @@ const Flows = () => {
                     >
                         All flows
                     </ToggleButton>
-                    {groups.map((group) => (
+                    {uniqueGroups.map((group) => (
                         <ToggleButton
                             style={{
                                 backgroundColor:"transparent",
-                                color: selectedGroup === group ? "#06AD85" : "black",                                border:"none",
-                                width:"100%"
+                                color: selectedGroup === group ? "#06AD85" : "black", border:"none",
+                                width:"100%",
+                                textAlign:"left"
                             }}
                             key={group}
                             type="radio"
@@ -431,7 +452,7 @@ const Flows = () => {
 
                                     <EditButton/>
                                     <DuplicateButton/>
-                                    <FlowDeleteButton/>
+                                    <FlowDeleteButton id={flow.id}/>
 
 
                                 </div>

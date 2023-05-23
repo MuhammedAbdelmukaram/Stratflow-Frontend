@@ -6,6 +6,16 @@ import FlowsIcon from '../Assets/NavBar Assets/flowsicon.png';
 import StrategiesIcon from '../Assets/NavBar Assets/strategyicon.png';
 import CustomMetricsIcon from '../Assets/NavBar Assets/custommetricsicon2.png';
 import ReportsIcon from '../Assets/NavBar Assets/analyticsicon.png';
+import PlannerIcon from '../Assets/NavBar Assets/PlannerIcon1.png';
+import PlannerIcon2 from '../Assets/NavBar Assets/PlannerIcon2.png';
+import PlannerIcon3 from '../Assets/NavBar Assets/PlannerIcon3.png';
+import PlannerIcon4 from '../Assets/NavBar Assets/PlannerIcon4.png';
+import ReportsIcon1 from '../Assets/NavBar Assets/ReportsIcon1.png';
+import ReportsIcon2 from '../Assets/NavBar Assets/ReportsIcon2.png';
+
+
+
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -51,21 +61,35 @@ const SidebarMenu = () => {
                 </Menu.Item>
 
                 <Menu.Item onClick={() => navigate('../strategies', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={StrategiesIcon} style={{marginLeft:12, height: 28}} />}>
+                           icon={<img src={PlannerIcon} style={{marginLeft:15, height: 25}} />}>
 
                     <span style={{ marginLeft: '10px' }}>Strategies</span>
 
                 </Menu.Item>
 
-                <Menu.Item onClick={() => navigate('../custommetrics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
+                <Menu.Item onClick={() => navigate('../scheduler', { replace: true })}  style={{ textAlign: 'left', height:48 }}
+                           icon={<img src={PlannerIcon} style={{marginLeft:15, height: 25}} />}>
+
+                    <span style={{ marginLeft: '10px' }}>Scheduler</span>
+
+                </Menu.Item>
+
+                {/*<Menu.Item onClick={() => navigate('../custommetrics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
                            icon={<img src={CustomMetricsIcon} style={{marginLeft:16, height: 24}} />}>
 
                     <span style={{ marginLeft: '10px' }}>Custom Metrics</span>
 
+                </Menu.Item>*/}
+
+                <Menu.Item onClick={() => navigate('../analytics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
+                           icon={<img src={ReportsIcon} style={{marginLeft:15, height: 25}} />}>
+
+                    <span style={{ marginLeft: '10px' }}>Analytics</span>
+
                 </Menu.Item>
 
                 <Menu.Item onClick={() => navigate('../reports', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={ReportsIcon} style={{marginLeft:15, height: 25}} />}>
+                           icon={<img src={ReportsIcon1} style={{marginLeft:13, height: 27}} />}>
 
                     <span style={{ marginLeft: '10px' }}>Reports</span>
 

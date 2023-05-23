@@ -13,9 +13,10 @@ const InputWithToggle = () => {
     };
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', width: 85, marginLeft:20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginLeft:20 }}>
             <input
                 type="text"
+                placeholder={"hey"}
                 value={value}
                 onChange={handleInputChange}
                 style={{

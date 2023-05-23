@@ -1,8 +1,20 @@
 import React from 'react';
+import {useDrag} from "react-dnd";
 
-const IncreaseBudget = () => {
+const IncreaseBudget = ({fromSidebar}) => {
+    const [{ isDragging }, drag] = useDrag({
+        type: 'INCREASE_BUDGET',
+        item: { name: 'INCREASE_BUDGET' },
+        canDrag: () => fromSidebar,
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+
+    });
+
     return (
         <div
+            ref={drag}
              style={{
                 height:60,
                 width:150,

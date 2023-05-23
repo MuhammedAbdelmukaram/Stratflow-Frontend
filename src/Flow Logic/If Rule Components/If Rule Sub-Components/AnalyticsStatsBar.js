@@ -57,11 +57,14 @@ function AnalyticsStatsBar(props) {
                                 </div>
 
                     <div
-                    style={{display:"flex",height:'100%',alignItems:"center"}}
+                    style={{display:"flex",height:'100%',alignItems:"center", marginTop:2}}
                     >
 
                                     <div
-                                    style={{}}
+                                    style={{
+
+
+                                    }}
                                     >
 
                                         <p
@@ -74,6 +77,7 @@ function AnalyticsStatsBar(props) {
 
                                         <p
                                         style={{
+                                            marginTop:0,
                                             marginBottom:0,
                                             color:"#B4B4B4",
                                             fontSize:12,
@@ -81,6 +85,7 @@ function AnalyticsStatsBar(props) {
                                         >Ad Sets:</p>
 
                                         <p style={{
+                                            marginTop:0,
                                             marginBottom:0,
                                             color:"#B4B4B4",
                                             fontSize:12,
@@ -99,6 +104,7 @@ function AnalyticsStatsBar(props) {
 
                                     <p
                                         style={{
+                                            marginTop:0,
                                             marginBottom:0,
                                             fontSize:12,
                                             textAlign:"left",}}
@@ -106,12 +112,14 @@ function AnalyticsStatsBar(props) {
 
                                     <p
                                         style={{
+                                            marginTop:0,
                                             marginBottom:0,
                                             fontSize:12,
                                             textAlign:"left",}}
                                     >6</p>
 
                                     <p style={{
+                                        marginTop:0,
                                         marginBottom:0,
                                         fontSize:12,
                                         textAlign:"left",

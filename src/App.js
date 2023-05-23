@@ -22,6 +22,11 @@ import FlowHeader from "./Flow Logic/Flow Header";
 import FlowSidebar from "./Flow Logic/Flow Sidebar";
 import FlowWorkspace from "./Flow Logic/Flow Workspace";
 import FlowLogicParrent from "./Flow Logic/FlowLogic Parrent";
+import {Provider} from "react-redux";
+import { configureStore } from '@reduxjs/toolkit';
+import flowsReducer from '../src/FlowsSlice.js';
+import store from "./Store";
+
 
 function App() {
     return (
@@ -46,16 +51,35 @@ function App() {
                     <Route path="/integrations" element={<> <NavigationBar /> <SidebarMenu /> <Integrations /> </>}>
                     </Route>
 
-                    <Route path="/dashboard" element={<> <NavigationBar /> <SidebarMenu /> <Dashboard /> </>}>
+                    <Route path="/dashboard" element={<> <NavigationBar /> <SidebarMenu />
+                        <Provider store={store}>
+                        <Dashboard />
+                        </Provider>
+                    </>}>
                     </Route>
 
-                    <Route path="/flows" element={<> <NavigationBar /> <SidebarMenu /> <Flows /> </>}>
+                    <Route path="/flows" element={<> <NavigationBar /> <SidebarMenu />
+
+                        <Provider store={store}>
+                        <Flows />
+                        </Provider>
+
+                    </>}>
                     </Route>
 
                     <Route path="/custommetrics" element={<> <NavigationBar /> <SidebarMenu /> <CustomMetrics /> </>}>
                     </Route>
 
                     <Route path="/strategies" element={<> <NavigationBar /> <SidebarMenu /> <Strategies /> </>}>
+                    </Route>
+
+                    <Route path="/analytics" element={<> <NavigationBar /> <SidebarMenu /> </>}>
+                    </Route>
+
+                    <Route path="/strategies" element={<> <NavigationBar /> <SidebarMenu /> <Strategies /> </>}>
+                    </Route>
+
+                    <Route path="/scheduler" element={<> <NavigationBar /> <SidebarMenu />  </>}>
                     </Route>
 
                     <Route path="/reports" element={<> <NavigationBar /> <SidebarMenu /> <Reports /> </>}>
@@ -70,7 +94,13 @@ function App() {
                     <Route path="/plans" element={<> <NavigationBar /> <SidebarMenu /> <Plans /></>}>
                     </Route>
 
-                    <Route path="/flowlogic" element={<> <FlowLogicParrent />   </>}>
+                    <Route path="/flowlogic" element={<>
+
+                        <Provider store={store}>
+                        <FlowLogicParrent />
+                        </Provider>
+
+                    </>}>
                     </Route>
 
                     <Route path="/" element={<> <NavigationBar /> <SidebarMenu /> </>}>

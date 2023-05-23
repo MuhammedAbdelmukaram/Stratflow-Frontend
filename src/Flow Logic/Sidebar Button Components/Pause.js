@@ -1,12 +1,24 @@
 import React from 'react';
+import {useDrag} from "react-dnd";
 
-const DecreaseBudget = () => {
+const Pause = ({fromSidebar}) => {
+    const [{ isDragging }, drag] = useDrag({
+        type: 'PAUSE',
+        item: { name: 'PAUSE' },
+        canDrag: () => fromSidebar,
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+
+    });
+
     return (
         <div
+            ref={drag}
             style={{
                 height:60,
                 width:150,
-                backgroundColor:'#5F2F2F',
+                backgroundColor:'#2E2E2E',
                 border:'1px solid black',
                 display:"flex",
                 marginTop:10,
@@ -27,11 +39,11 @@ const DecreaseBudget = () => {
                         color:'white',
                         fontWeight:600
                     }}
-                >Decrease Budget</p>
+                >PAUSE</p>
             </div>
 
         </div>
     );
 };
 
-export default DecreaseBudget;
+export default Pause;

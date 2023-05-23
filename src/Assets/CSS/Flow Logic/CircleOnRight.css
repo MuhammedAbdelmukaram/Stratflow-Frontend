@@ -1,0 +1,15 @@
+.circle-right {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #767676;
+    background-color: white;
+}
+
+.circle-right.isOver {
+    width: 14px;
+    height: 14px;
+    background-color: #06AD85;
+    border:none;
+}
+

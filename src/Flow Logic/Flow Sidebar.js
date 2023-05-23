@@ -1,7 +1,9 @@
 import React from 'react';
-import IfRule from "./Button Components/If Rule";
-import IncreaseBudget from "./Button Components/Increase Budget";
-import DecreaseBudget from "./Button Components/Decrease Budget";
+import IfRule from "./Sidebar Button Components/If Rule";
+import IncreaseBudget from "./Sidebar Button Components/Increase Budget";
+import DecreaseBudget from "./Sidebar Button Components/Decrease Budget";
+import Pause from "./Sidebar Button Components/Pause";
+import Notify from "./Sidebar Button Components/Notify";
 
 const FlowSidebar = () => {
     return (
@@ -18,9 +20,10 @@ const FlowSidebar = () => {
         >
 
             <IfRule fromSidebar={true} />
-            <IncreaseBudget />
-            <DecreaseBudget />
-
+            <IncreaseBudget fromSidebar={true}/>
+            <DecreaseBudget fromSidebar={true}/>
+            <Pause fromSidebar={true}/>
+            <Notify fromSidebar={true}/>
 
         </div>
     );

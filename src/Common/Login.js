@@ -26,6 +26,9 @@ class Login extends React.Component{
                         <Form.Item style={{ marginTop: '-10px' }} label="Password" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
                             <Input type="password" placeholder="Password" required />
                         </Form.Item>
+                        <p style={{ marginTop: '10px', fontSize: '11px', textAlign: 'left' }}>
+                            <a href="/passwordreset" style={{ textDecoration: 'underline', color: 'black' }}>Forgot your password?</a>
+                        </p>
 
                         <Form.Item style={{ marginTop: '50px', fontSize: '10px', textAlign: 'left' }}>
                             Don't have an account? <a href="/signup" style={{ textDecoration: 'underline', fontWeight: 'bold', color: 'black' }}>Start your free trial</a>
@@ -44,9 +47,7 @@ class Login extends React.Component{
                         >
                             Log In
                         </Button>
-                        <p style={{ marginTop: '10px', fontSize: '11px', textAlign: 'left' }}>
-                           <a href="/passwordreset" style={{ textDecoration: 'underline', color: 'black' }}>Forgot your password?</a>
-                        </p>
+
                     </Form>
                 </div>
             </div>

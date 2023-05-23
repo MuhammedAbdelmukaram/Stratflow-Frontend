@@ -1,31 +1,75 @@
 import React, {useState} from 'react';
-import {Col, Container, Form, Row} from "react-bootstrap";
-import { Line } from 'react-chartjs-2';
-import {Chart as ChartJS, CategoryScale, LineElement, LinearScale, PointElement} from "chart.js";
+import {Col, Container, Row} from "react-bootstrap";
+import {Bar, Line} from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LineElement,
+    LinearScale,
+    PointElement,
+    Filler,
+    Tooltip,
+    BarElement, Title, Legend
+} from "chart.js";
+import LineCard from "./Dashboard Components/Line Card";
+import AdAccountSelect from "./Dashboard Components/AdAccountSelect";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleDiv} from "../DashboardSlice";
 
-ChartJS.register(LinearScale, CategoryScale, LineElement, PointElement);
+ChartJS.register(LinearScale, CategoryScale, LineElement, BarElement, Title, Legend, PointElement, Filler, Tooltip );
 
 const data2 = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'august', 'september', 'october', 'november', 'december'],
-    datasets:[
+    labels: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ],
+    datasets: [
         {
             label: 'My First dataset',
             fill: false,
             lineTension: 0.3,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            pointBorderColor: 'rgba(75,192,192,1)',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            borderColor: 'rgba(0, 0, 0, 1)',
+            pointBorderColor: 'rgba(0, 0, 0, 1)',
             pointBackgroundColor: '#fff',
             pointBorderWidth: 4,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBackgroundColor: 'rgba(0, 0, 0, 1)',
             pointHoverBorderColor: 'rgba(220,220,220,1)',
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 59, 40, 85, 65, 59, 80, 81, 56]
+            data: [65, 59, 80, 81, 59, 40, 85, 65, 59, 80, 81, 56],
+        },
+        {
+            label: 'My Second dataset',
+            fill: false,
+            lineTension: 0.3,
+            backgroundColor: 'rgba(0, 255, 0, 0.4)',
+            borderColor: 'rgba(6, 173, 133,1)',
+            borderDash: [10, 5],
+            pointBorderColor: 'rgba(6, 173, 133,1)',
+            pointBackgroundColor: 'rgba(6, 173, 133,1)',
+            pointBorderWidth: 2,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(6, 173, 133,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [30, 40, 50, 60, 50, 30, 55, 30, 40, 50, 60, 45],
         }
-    ]
+    ],
 };
 
 
@@ -35,13 +79,19 @@ const data = {
     datasets: [
         {
             label: 'My First dataset',
-            fill: false,
+            fill: true,
+            backgroundColor: (ctx) => {
+                const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
+                gradient.addColorStop(0, 'rgba(33, 37, 41, 0.2)');
+                gradient.addColorStop(0.5, 'rgba(33, 37, 41, 0.1)');
+                gradient.addColorStop(1, 'rgba(33, 37, 41, 0)');
+                return gradient;
+            },
             lineTension: 0.3,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
+            borderColor: '#212529',
             borderDash: [],
-            borderDashOffset: 0.0,
+            borderDashOffset: 0,
+            borderWidth: 1.5,
             borderJoinStyle: 'miter',
             pointBorderColor: 'rgba(75,192,192,1)',
             pointBackgroundColor: '#fff',
@@ -52,9 +102,9 @@ const data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 85]
-        }
-    ]
+            data: [75, 59, 80, 81, 56, 55, 85]
+        },
+    ],
 };
 
 
@@ -82,13 +132,32 @@ const options2 = {
             },
         },
     },
-    legend: {
-        display: false
-    },
+
     responsive: false,
     maintainAspectRatio: false,
-    width: 140,
-    height: 100,
+    plugins: {
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: true,
+            mode: 'nearest',
+            intersect: false,
+            callbacks: {
+                title: function (tooltipItem, data) {
+                    return data.labels[tooltipItem[0].index];
+                },
+                label: function (tooltipItem, data) {
+                    let label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += tooltipItem.yLabel;
+                    return label;
+                },
+            },
+        },
+    },
 };
 
 const options = {
@@ -113,12 +182,12 @@ const options = {
                 y: {
 
                     display: false,
-                        ticks: {
+                    ticks: {
                             display: false,
                             beginAtZero: true,
                         },
                         // to remove the y-axis grid
-                        grid: {
+                    grid: {
                             drawBorder: false,
                             display: false,
                         },
@@ -126,25 +195,97 @@ const options = {
 
                 },
 
-            legend: {
-                display: false
+
+         plugins: {
+             legend: {
+                 display: false
+             },
+            tooltip: {
+              enabled: false,}
+         },
+
+         responsive: false,
+         maintainAspectRatio: false,
+         width: 140,
+         height: 100,
+};
+
+const BarOptions = {
+    plugins: {
+        title: {
+            display: true,
+            text: 'Chart.js Bar Chart - Stacked',
+        },
+    },
+    responsive: true,
+    scales: {
+        x: {
+            stacked: true,
+            grid: {
+                drawBorder: false,
+                display: false,
             },
-            responsive: false,
-            maintainAspectRatio: false,
-            width: 140,
-            height: 100,
+
+        },
+        y: {
+            stacked: true,
+        },
+    },
+};
+
+const labels = ['Flow1', 'Flow2', 'Flow3', 'Flow4', 'Flow5', 'Flow6', 'Flow7'];
+
+const fakeData1 = [4, 10, 0, 10, 8, 0, 0];
+const fakeData2 = [2, 0, 8, 10, 5, 0, 3];
+const fakeData3 = [4, 5, 5, 0, 10, 3, 3];
+
+const BarData = {
+    labels,
+    datasets: [
+        {
+            label: 'Budget increase',
+            data:fakeData1,
+            backgroundColor: 'rgb(6,173,133)',
+            barPercentage: 0.1, // Adjust as needed
+            categoryPercentage: 0.8, // Adjust as needed
+            borderRadius: {
+                topLeft: 10,
+                topRight: 10,
+                bottomLeft: 10,
+                bottomRight: 10
+            }
+        },
+        {
+            label: 'Budget decrease',
+            data: fakeData2,
+            backgroundColor: 'rgb(95,47,47)',
+            barPercentage: 0.1, // Adjust as needed
+            categoryPercentage: 0.8, // Adjust as needed
+            borderRadius: {
+                topLeft: 10,
+                topRight: 10,
+                bottomLeft: 10,
+                bottomRight: 10
+            }
+        },
+        {
+            label: 'Pause',
+            data: fakeData3,
+            backgroundColor: 'rgb(208,212,8)',
+            barPercentage: 0.1, // Adjust as needed
+            categoryPercentage: 0.8, // Adjust as needed
+            borderRadius: {
+                topLeft: 10,
+                topRight: 10,
+                bottomLeft: 10,
+                bottomRight: 10
+            }
+        },
+    ],
 };
 
 
 
-const ArrowDown = {
-    width: 500,
-    appearance: "none",
-    backLroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M7 10l5 5 5-5z\"/></svg>')",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "right 10px top 50%",
-    paddingRight: "30px"
-};
 
 const SingleNewsCard = ({imgSrc, title, description, link}) => {
     return (
@@ -304,78 +445,83 @@ function HourButtons() {
 
 
 function WhatsNew() {
-    const [showDiv, setShowDiv] = useState(true);
+    const showDiv = useSelector((state) => state.whatsNew.showDiv);
+    const dispatch = useDispatch();
 
     const handleCollapse = () => {
-        setShowDiv(false);
+        dispatch(toggleDiv());
     };
 
     return (
         <>
             {showDiv && (
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        width: "fit-content",
-                        height: 200,
-                        backgroundColor: "#FAFAFA",
-                        borderRadius: 10,
-                        padding: 10,
-                        paddingTop:26,
-                        position: "relative",
-                    }}
-                >
-                    <button
+                <div>
+                    <p>What's New?</p>
+                    <div
                         style={{
-                            position: "absolute",
-                            top: -4,
-                            right: 6,
-                            border: "none",
-                            backgroundColor: "transparent",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            width: "fit-content",
+                            height: 200,
+                            backgroundColor: "#FAFAFA",
+                            borderRadius: 10,
+                            padding: 10,
+                            paddingTop:26,
+                            position: "relative",
                         }}
-                        onClick={handleCollapse}
                     >
-                        <img src={require('../Assets/Dashboard Assets/CloseDashboardLine.png')} alt=""
-                        width={'25'}/>
-                    </button>
 
-                    <SingleNewsCard
-                        imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
-                        title={"INTEGRATION"}
-                        description={
-                            "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
-                        }
-                        link={""}
-                    />
+                        <button
+                            style={{
+                                position: "absolute",
+                                top: -4,
+                                right: 6,
+                                border: "none",
+                                backgroundColor: "transparent",
+                            }}
+                            onClick={handleCollapse}
+                        >
+                            <img src={require('../Assets/Dashboard Assets/CloseDashboardLine.png')} alt=""
+                            width={'25'}/>
+                        </button>
 
-                    <SingleNewsCard
-                        imgSrc={require("../Assets/Dashboard Assets/Shopify.png")}
-                        title={"INTEGRATION"}
-                        description={
-                            "Connect your Shopify account and improve your attribution data considerably"
-                        }
-                        link={""}
-                    />
+                        <SingleNewsCard
+                            imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
+                            title={"INTEGRATION"}
+                            description={
+                                "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
+                            }
+                            link={""}
+                        />
 
-                    <SingleNewsCard
-                        imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
-                        title={"INTEGRATION"}
-                        description={
-                            "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
-                        }
-                        link={""}
-                    />
+                        <SingleNewsCard
+                            imgSrc={require("../Assets/Dashboard Assets/Shopify.png")}
+                            title={"INTEGRATION"}
+                            description={
+                                "Connect your Shopify account and improve your attribution data considerably"
+                            }
+                            link={""}
+                        />
 
-                    <SingleNewsCard
-                        imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
-                        title={"INTEGRATION"}
-                        description={
-                            "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
-                        }
-                        link={""}
-                    />
+                        <SingleNewsCard
+                            imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
+                            title={"INTEGRATION"}
+                            description={
+                                "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
+                            }
+                            link={""}
+                        />
+
+                        <SingleNewsCard
+                            imgSrc={require("../Assets/Dashboard Assets/Slack.png")}
+                            title={"INTEGRATION"}
+                            description={
+                                "Our Slack integration is LIVE! Connect your account and get flow notifications in real time."
+                            }
+                            link={""}
+                        />
+                    </div>
                 </div>
             )}
         </>
@@ -399,7 +545,7 @@ class Dashboard extends React.Component{
                        <div
                        style={{marginTop:20}}>
 
-                           <p>What's New!</p>
+
 
                            <WhatsNew/>
 
@@ -413,30 +559,7 @@ class Dashboard extends React.Component{
                            >Overview</p>
 
 
-                           <Form.Group style={{marginTop:20, display:"flex", flexDirection:"column"}} controlId="formSelectTimezone">
-                               <Form.Label style={{textAlign:"left"}}>Ad account:</Form.Label>
-                               <Form.Control style={ArrowDown} as="select">
-                                   <option>
-                                       <div style={{display:"flex", flexDirection:"column"}}>
-                                           <p>Stratflow Ad Account</p>
-                                           <span>user5844887010046</span>
-                                       </div>
-                                   </option>
-                                   <option>
-                                       <div style={{display:"flex", flexDirection:"column"}}>
-                                           <p>Stratflow Ad Account 2</p>
-                                           <span>user5844887010046</span>
-                                       </div>
-                                   </option>
-                                   <option>
-                                       <div style={{display:"flex", flexDirection:"column"}}>
-                                           <p>Stratflow Ad Account 3</p>
-                                           <span>user5844887010046</span>
-                                       </div>
-                                   </option>
-                                   {/* Add additional timezone options here */}
-                               </Form.Control>
-                           </Form.Group>
+                          <AdAccountSelect/>
 
                        </div>
 
@@ -447,89 +570,63 @@ class Dashboard extends React.Component{
 
 
                         <div style={{display:"flex"}}>
-                            <div
-                                className={"single-dash-card"}
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    backgroundColor: "#fff",
-                                    border: "1px solid #A9A9A9",
-                                    boxSizing: "border-box",
-                                    width: 316,
-                                    height: 174,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    paddingTop: 8,
-                                    paddingBottom:15,
-                                    marginLeft: 10,
-                                    marginTop:20,
-                                }}
-                            >
-                                <div style={{ display: "flex", flexDirection: "column", width: "50%" }}>
-                                    <p style={{ color: "#595959", fontWeight:600 }}>Flow triggers</p>
-                                    <div style={{ display: "flex", justifyContent: "flex-start", paddingLeft: 8 }}>
-                                        <p
-                                            style={{
-                                                fontSize:36,
-                                                fontWeight:"bold",
-                                            }}
-                                        >27/55</p>
-                                    </div>
 
-                                    <div
-                                        style={{
-                                            borderRadius: 10,
-                                            backgroundColor: "rgba(6, 173, 133, 0.03)",
-                                            border: "1px solid #06AD85",
-                                            display: "flex",
-                                            justifyContent:"flex-end",
-                                            alignItems:"center",
-                                            marginTop:"auto",
-                                            width:65,
-                                            height:25
+                            <LineCard
+                                cardTitle="Flow Triggers"
+                                cardValue="27/55"
+                                chartData={data}
+                                options={options}
+                            />
 
-                                        }}
-                                    >
-                                        <img src={require("../Assets/Dashboard Assets/Growing.png")}
-                                             style={{
-                                                 width: 19,
-                                                 height: 21,
-                                                 marginLeft: 5,
-                                                 marginTop: 5,
-                                                 marginBottom: 5,
-                                                 marginRight: 5,}}
-                                             alt=""/>
+                            <LineCard
+                                cardTitle="Saved Funds"
+                                cardValue="$374k"
+                                chartData={data}
+                                options={options}
+                            />
 
-                                        <p
-                                            style={{
-                                                color: "#06AD85",
-                                                fontSize: 12,
-                                                fontWeight: 800,
-                                                marginTop: 5,
-                                                marginBottom: 5,
-                                                marginRight: 5,
-                                            }}
-                                        >35%</p>
-                                    </div>
+                            <LineCard
+                                cardTitle="Ad Spend"
+                                cardValue="$623k"
+                                chartData={data}
+                                options={options}
+                            />
 
-                                </div>
-
-
-
-                                <div style={{ display: "flex", flexDirection: "column", width: "50%", justifyContent:"flex-end" }}>
-
-                                    <Line data={data} options={options} height={108} width={144}/>
-
-                                </div>
-                            </div>
+                            <LineCard
+                                cardTitle="Profit"
+                                cardValue="$254k"
+                                chartData={data}
+                                options={options}
+                            />
 
 
                         </div>
 
 
-                        <Line
-                            style={{marginTop:20, marginLeft:10, marginRight:10}}
-                            data={data2} options={options2} width={1100}> </Line>
+
+                        <div style={{marginTop:85}}>
+                            <p>Ad Spend/Profit</p>
+
+                            <div
+                            style={{ border:"1px solid #E5E5E5", borderRadius:10, padding:10, paddingTop:26, width:1300,boxSizing:"border-box"}}
+                            >
+
+                                <Line data={data2} options={options2} height='150' width={1260} />
+                            </div>
+                        </div>
+
+
+                        <p
+                            style={{
+                                marginTop:100,
+                                fontSize:20,
+                                fontWeight:700,
+                            }}
+                        >Flow Performance</p>
+
+                        <AdAccountSelect/>
+
+                        <Bar options={BarOptions} data={BarData} />
 
 
 
