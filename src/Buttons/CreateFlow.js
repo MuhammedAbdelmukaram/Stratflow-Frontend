@@ -24,7 +24,7 @@ function CreateFlow() {
                         <div>
                             <Button variant="text" size="small"  style={{display: "flex", flexDirection: "row", justifyContent:"space-between"}}>
                                 <img
-                                    src={require("../Assets/Strategies Assets/CreateScratch.png")}
+                                    src={require("../../Assets/Strategies Assets/CreateScratch.png")}
                                     alt="CreateScratch"
                                     style={{
                                         height:250,
@@ -36,7 +36,7 @@ function CreateFlow() {
                         </div>
                         <Button variant="text" size="small"  style={{display: "flex", flexDirection: "row", justifyContent:"space-between"}}>
                             <img
-                                src={require("../Assets/Strategies Assets/UseStrategy.png")}
+                                src={require("../../Assets/Strategies Assets/UseStrategy.png")}
                                 alt="CreateScratch"
                                 style={{
                                     height:250,

@@ -1,6 +1,6 @@
 .wrapper {
     position: relative;
-    height: 36px;
+    height: 46px;
     width: 480px;
 }
 
@@ -79,3 +79,68 @@
     bottom: 0;
     height: calc(50% - 6px); /* Decrease height by 6px to fit within circle */
 }
+
+
+/*HORIZONTAL*/
+
+.line-horizontal {
+    position: absolute;
+    top: 50%; /* Change 'top' to center the line vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    height: 1px;
+    width: 100%; /* Make the line extend horizontally */
+    background-color: #767676;
+}
+
+.line1-horizontal {
+    left: 0;
+    width: 50%; /* Divide the width into two equal parts */
+}
+
+.line2-horizontal {
+    right: 0;
+    width: calc(50% - 4px); /* Adjust width for spacing within circle */
+}
+
+/* Pseudo-element for plus sign */
+.circle.isOverH {
+    width: 14px;
+    height: 14px;
+    background-color: #06AD85;
+    border:none;
+}
+
+.circle.isOverH::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 8px;
+    background-color: white;
+}
+
+.circle.isOverH::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 8px;
+    background-color: white;
+}
+
+.circle.isOverH::after:before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 8px;
+    background-color: white;
+}
+
+

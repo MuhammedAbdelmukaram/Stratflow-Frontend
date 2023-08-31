@@ -1,115 +1,210 @@
-import logo from './logo.svg';
-import './App.css';
-import NavigationBar from "./Common/NavBar";
-import Signup from "./Common/Signup";
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from "./Common/Login";
-import SidebarMenu from "./Common/SideBar";
-import MyAccount from "./Secondary Menu/My Account";
-import Settings from "./Secondary Menu/Settings";
-import Integrations from "./Secondary Menu/Integrations";
-import Billing from "./Secondary Menu/Billing";
-import Dashboard from "./Menu/Dashboard";
-import CustomMetrics from "./Menu/Custom Metrics";
-import Strategies from "./Menu/Strategies";
-import Reports from "./Menu/Reports";
-import Flows from "./Menu/Flows";
-import Loader from "./Common/Loader";
-import Plans from "./Header Menu/Plans";
-import Support from "./Header Menu/Support";
-import SideNavBar from "./Common/SideNavBar";
-import FlowHeader from "./Flow Logic/Flow Header";
-import FlowSidebar from "./Flow Logic/Flow Sidebar";
-import FlowWorkspace from "./Flow Logic/Flow Workspace";
-import FlowLogicParrent from "./Flow Logic/FlowLogic Parrent";
-import {Provider} from "react-redux";
-import { configureStore } from '@reduxjs/toolkit';
-import flowsReducer from '../src/FlowsSlice.js';
-import store from "./Store";
-
+import NavigationBar from './Common/NavBar';
+import Login from './Common/Login';
+import SidebarMenu from './Common/SideBar';
+import Signup from './Common/Signup';
+import MyAccount from './Secondary Menu/My Account';
+import Settings from './Secondary Menu/Settings';
+import Integrations from './Secondary Menu/Integrations';
+import Billing from './Secondary Menu/Billing';
+import Dashboard from './Menu/Dashboard';
+import CustomMetrics from './Menu/Custom Metrics';
+import Strategies from './Menu/Strategies';
+import Reports from './Menu/Reports';
+import Flows from './Menu/Flows';
+import Loader from './Common/Loader';
+import Plans from './Header Menu/Plans';
+import Support from './Header Menu/Support';
+import SideNavBar from './Common/SideNavBar';
+import FlowLogicParrent from './Flow Logic/FlowLogic Parrent';
+import { Provider } from 'react-redux';
+import store from './Redux/Store';
+import Scheduler from './Menu/Scheduler';
+import {AuthProvider} from "./Auth/authContext";
+import ProtectedRoute from "./Auth/protectedRoutes";
+import Analytics from "./Menu/Analytics";
 
 function App() {
     return (
-        <Router>
-                <Routes>
+        <AuthProvider>
+                <Router>
+                    <Routes>
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/login" element={<Login />} />
 
-                    <Route path="/signup" element={<Signup/>}>
-                    </Route>
+                        <Route element={<ProtectedRoute />}>
+                            <Route
+                                path="/account"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <MyAccount />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/settings"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Settings />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/billing"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Billing />
+                                    </>
+                                }
+                            />
 
-                    <Route path="/login" element={<Login />}>
-                    </Route>
+                            <Route
+                                path="/scheduler"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Scheduler />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/integrations"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Integrations />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/dashboard"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Provider store={store}>
+                                            <Dashboard />
+                                        </Provider>
+                                    </>
+                                }
+                            />
 
-                    <Route path="/account" element={<> <NavigationBar /> <SidebarMenu /> <MyAccount /> </>}>
-                    </Route>
+                                <Route
+                                    element={
+                                        <>
+                                            <NavigationBar />
+                                            <SidebarMenu />
+                                            <Provider store={store}>
+                                                <Flows />
+                                            </Provider>
+                                        </>
+                                    }
+                                    path="/flows"
+                                    exact
+                                />
 
-                    <Route path="/settings" element={<> <NavigationBar /> <SidebarMenu /> <Settings /> </>}>
-                    </Route>
+                                <Route path="/strategies" element={<>
+                                    <NavigationBar />
+                                    <SidebarMenu />
+                                    <Strategies />
+                                </>} />
 
-                    <Route path="/billing" element={<> <NavigationBar /> <SidebarMenu /> <Billing /> </>}>
-                    </Route>
-
-                    <Route path="/integrations" element={<> <NavigationBar /> <SidebarMenu /> <Integrations /> </>}>
-                    </Route>
-
-                    <Route path="/dashboard" element={<> <NavigationBar /> <SidebarMenu />
-                        <Provider store={store}>
-                        <Dashboard />
-                        </Provider>
-                    </>}>
-                    </Route>
-
-                    <Route path="/flows" element={<> <NavigationBar /> <SidebarMenu />
-
-                        <Provider store={store}>
-                        <Flows />
-                        </Provider>
-
-                    </>}>
-                    </Route>
-
-                    <Route path="/custommetrics" element={<> <NavigationBar /> <SidebarMenu /> <CustomMetrics /> </>}>
-                    </Route>
-
-                    <Route path="/strategies" element={<> <NavigationBar /> <SidebarMenu /> <Strategies /> </>}>
-                    </Route>
-
-                    <Route path="/analytics" element={<> <NavigationBar /> <SidebarMenu /> </>}>
-                    </Route>
-
-                    <Route path="/strategies" element={<> <NavigationBar /> <SidebarMenu /> <Strategies /> </>}>
-                    </Route>
-
-                    <Route path="/scheduler" element={<> <NavigationBar /> <SidebarMenu />  </>}>
-                    </Route>
-
-                    <Route path="/reports" element={<> <NavigationBar /> <SidebarMenu /> <Reports /> </>}>
-                    </Route>
-
-                    <Route path="/loader" element={<>  <Loader /> </>}>
-                    </Route>
-
-                    <Route path="/support" element={<> <NavigationBar /> <SideNavBar/>  </>}>
-                    </Route>
-
-                    <Route path="/plans" element={<> <NavigationBar /> <SidebarMenu /> <Plans /></>}>
-                    </Route>
-
-                    <Route path="/flowlogic" element={<>
-
-                        <Provider store={store}>
-                        <FlowLogicParrent />
-                        </Provider>
-
-                    </>}>
-                    </Route>
-
-                    <Route path="/" element={<> <NavigationBar /> <SidebarMenu /> </>}>
-                    </Route>
+                            <Route
+                                path="/custommetrics"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <CustomMetrics />
+                                    </>
+                                }
+                            />
 
 
 
-                </Routes>
-        </Router>
+                            <Route
+                                path="/analytics"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Analytics/>
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/reports"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Reports />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/loader"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <Loader />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/support"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SideNavBar />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/plans"
+                                element={
+                                    <>
+                                        <NavigationBar />
+                                        <SidebarMenu />
+                                        <Plans />
+                                    </>
+                                }
+                            />
+                            <Route
+                                path="/flowlogic/:flowId"
+                                element={
+                                    <>
+                                        <Provider store={store}>
+                                            <FlowLogicParrent />
+                                        </Provider>
+                                    </>
+                                }
+                            />
+                        </Route>
+
+                        <Route
+                            path="/"
+                            element={
+                                <>
+                                    <NavigationBar />
+                                    <SidebarMenu />
+                                </>
+                            }
+                        />
+
+
+                    </Routes>
+                </Router>
+            </AuthProvider>
     );
 }
 

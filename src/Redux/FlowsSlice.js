@@ -6,13 +6,7 @@ const flowsSlice = createSlice({
         searchTerm: '',
         filter: 'All rules',
         flows: [
-            { group: 4, id: 1, name: 'Flow 1', active: true, triggered: false },
-            { group: 2, id: 2, name: 'Flow 2', active: false, triggered: true },
-            { group: 2, id: 3, name: 'Flow 3', active: true, triggered: false },
-            { group: 3, id: 4, name: 'Flow 3', active: true, triggered: false },
-            { group: 4, id: 5, name: 'Flow 6', active: true, triggered: true },
-            { group: 1, id: 6, name: 'Flow 1', active: true, triggered: false },
-            { group: 1, id: 7, name: 'Flow 1', active: true, triggered: false },
+
         ],
         groups: [
         ],

@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Button, Container, Modal, Nav, Navbar} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import Toast from 'react-bootstrap/Toast';
-
+import {useAuth} from "../Auth/authContext";
 
 
 //const navigate = useNavigate();
@@ -16,6 +16,8 @@ const notifications = [
     { id: 6, title: 'Notification 6', message: 'This is the third notification' },
     { id: 7, title: 'Notification 7', message: 'This is the third notification' },
 ];
+
+
 
 const NotificationIcon = () => {
     const [displayedNotifications, setDisplayedNotifications] = useState(notifications);
@@ -32,7 +34,7 @@ const NotificationIcon = () => {
     return (
         <>
             <Button
-                style={{ backgroundColor: 'transparent', borderColor: 'transparent', marginRight: '10px' }}
+                style={{ backgroundColor: 'transparent', borderColor: 'transparent', marginRight: '10px', marginLeft:"70vw" }}
                 onClick={toggleShowB}
             >
                 <img
@@ -106,42 +108,48 @@ const NavButtons = () => {
             </Button>
             <Button variant="dark"
                     onClick={() => navigate('../support', { replace: true })}
-                    style={{ fontSize:'90%'}}>Support</Button>
+                    style={{ fontSize:'90%',marginRight:20}}>Support</Button>
         </>
     );
 };
 
 
-class NavigationBar extends React.Component {
+const NavigationBar = () => {
 
-    render() {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
 
+    return (
+        <Navbar bg="dark">
+            <div>
+                {/* ... Other content */}
+                <div>
+                    <img
+                        src={require('../Assets/NavBar Assets/Stratflow-logo.png')} // Provide the path to your image
+                        alt="Logo"
+                        width="24px"
+                        height="auto"
+                        style={{ marginLeft:"40px" }}
+                    />
 
-        return (
+                    <NotificationIcon />
+                    <NavButtons />
+                    <Button
+                        variant="dark"
+                        onClick={() => {
+                            logout();
+                            navigate('/login');
+                        }}
+                        style={{ borderColor: 'white', borderRadius: '0px', fontSize: '90%' }}
+                    >
+                        Logout
+                    </Button>
+                </div>
+            </div>
+        </Navbar>
+    );
+};
 
-            <Navbar bg="dark">
-
-                <Container>
-                    <Navbar.Brand>
-                        <img
-                            src={require('../Assets/NavBar Assets/Stratflow-logo.png')}
-                            width="25"
-                            height=""
-                            className="d-inline-block align-top"
-                            alt="Stratflow Logo"
-                        />
-                    </Navbar.Brand>
-                   <div>
-
-                       <NotificationIcon />
-                       <NavButtons/>
-                   </div>
-                </Container>
-            </Navbar>
-        );
-    }
-
-}
 
 /**/
 

@@ -21,3 +21,28 @@
     color: #06AD85;
     font-weight: bold;
 }
+
+.node-parallel{
+    display: flex;
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 70px;
+    right: 100px;
+    z-index: 1000;
+}
+
+.zoom-button {
+    background-color: transparent;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-right: 6px;
+}
+
+.zoom-button img{
+    height: 70px;
+}
+
+

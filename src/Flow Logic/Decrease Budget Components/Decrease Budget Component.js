@@ -1,10 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LineCircleLine from '../If Rule Components/If Rule Sub-Components/Line Circle Line';
 import ThreeButtonMenu from "../If Rule Components/If Rule Sub-Components/Three Button Menu";
-import InputFieldIncreaseBudget from "./Decrease Budget Sub-Components/Input Field Decrease Budget";
 import InputFieldDecreaseBudget from "./Decrease Budget Sub-Components/Input Field Decrease Budget";
 
-const DecreaseBudgetComponent = ({ rule }) => {
+
+const DecreaseBudgetComponent = ({ rule, updateNodeValue, updateNodePercentage }) => {
+
+    const [value, setValue] = useState('');
+    const [isPercentage, setIsPercentage] = useState(false);
+
+    const handleInputChange = (event) => {
+        setValue(event.target.value);
+        // Call the updateNodeValue function from the parent component with the updated value and node ID
+        updateNodeValue(rule.id, event.target.value);
+    };
+
+    const handleToggleChange = (newIsPercentage) => {
+        setIsPercentage(newIsPercentage);
+        // Call the updateNodePercentage function from the parent component with the updated percentage value and node ID
+        updateNodePercentage(rule.id, newIsPercentage);
+    };
+
     return (
         <div key={rule.key} style={{ boxSizing: "border-box", display: "contents" }}>
             <div style={{
@@ -67,11 +83,11 @@ const DecreaseBudgetComponent = ({ rule }) => {
                                 marginBottom:4,
 
                             }}
-                        >Increase Budget by:</p>
+                        >Decrease Budget by:</p>
 
                     </div>
 
-                    <InputFieldDecreaseBudget />
+                    <InputFieldDecreaseBudget value={value} isPercentage={isPercentage} onChange={handleInputChange} onToggle={handleToggleChange} />
 
                 </div>
             </div>

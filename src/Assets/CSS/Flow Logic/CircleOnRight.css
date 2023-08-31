@@ -1,4 +1,14 @@
-.circle-right {
+.horizontal-wrapper {
+    position: relative;
+    width: 100px;
+    left:-52px;
+}
+
+.horizontal-circle {
+    position: absolute;
+    top: 50%;
+    left:  51px; /* Adjust the left value to your desired horizontal alignment */
+    transform: translate(-50%, -50%);
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -6,10 +16,33 @@
     background-color: white;
 }
 
-.circle-right.isOver {
+.horizontal-circle.isOver {
     width: 14px;
     height: 14px;
     background-color: #06AD85;
-    border:none;
+    border: none;
+}
+
+/* Pseudo-element for horizontal line */
+.horizontal-circle.isOver::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 12px;
+    background-color: white;
+}
+
+.horizontal-circle.isOver::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 12px;
+    width: 2px;
+    background-color: white;
 }
 

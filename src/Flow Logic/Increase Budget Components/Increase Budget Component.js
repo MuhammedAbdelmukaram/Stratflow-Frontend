@@ -1,17 +1,13 @@
-import React from 'react';
-import LineCircleLine from '../If Rule Components/If Rule Sub-Components/Line Circle Line';
-import ThreeButtonMenu from "../If Rule Components/If Rule Sub-Components/Three Button Menu";
-import InputFieldIncreaseBudget from "./Increase Budget Sub-Components/Input Field Increase Budget";
+import React, { useState } from 'react';
+import InputFieldIncreaseBudget from './Increase Budget Sub-Components/Input Field Increase Budget';
 
-const IncreaseBudgetComponent = ({ rule }) => {
+const IncreaseBudgetComponent = ({  nodeID, updateNodeValue, updateNodePercentage, nodeValue, nodePercentage }) => {
+
+
+
     return (
-        <div key={rule.key} style={{ boxSizing: "border-box", display: "contents" }}>
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent:"center",
-                width:480,
-            }}>
+        <div  style={{ boxSizing: "border-box", display: "contents" }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: "center", width: 480 }}>
                 <div
                     style={{
                         height:60,
@@ -39,42 +35,39 @@ const IncreaseBudgetComponent = ({ rule }) => {
                         >Increase Budget</p>
                     </div>
                 </div>
-
                 <div
                     style={{
-                        height:60,
-                        width:180,
-                        backgroundColor:'#ffffff',
-                        border:'1px solid black',
-                        display:"flex",
-                        flexDirection:"column",
-                    }}>
-
+                        height: 60,
+                        width: 180,
+                        backgroundColor: '#ffffff',
+                        border: '1px solid black',
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
                     <div
                         style={{
-                            width:'100%',
-                            marginLeft:12,
+                            width: '100%',
+                            marginLeft: 12,
                         }}
                     >
                         <p
                             style={{
-                                fontSize:12,
-                                marginTop:7,
-                                color:'black',
-                                fontWeight:"normal",
-                                marginRight:15,
-                                marginBottom:4,
-
+                                fontSize: 12,
+                                marginTop: 7,
+                                color: 'black',
+                                fontWeight: "normal",
+                                marginRight: 15,
+                                marginBottom: 4,
                             }}
                         >Increase Budget by:</p>
-
                     </div>
 
-                    <InputFieldIncreaseBudget />
+
+                    <InputFieldIncreaseBudget  nodeID={nodeID} updateNodeValue={updateNodeValue} updateNodePercentage={updateNodePercentage} nodeValue={nodeValue} nodePercentage={nodePercentage} />
 
                 </div>
             </div>
-
         </div>
     );
 };

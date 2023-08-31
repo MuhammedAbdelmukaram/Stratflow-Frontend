@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import flowsReducer from '../src/FlowsSlice.js';
-import whatsNewReducer from '../src/DashboardSlice.js';
+import flowsReducer from './FlowsSlice.js';
+import whatsNewReducer from './DashboardSlice.js';
 
 
 const store = configureStore({

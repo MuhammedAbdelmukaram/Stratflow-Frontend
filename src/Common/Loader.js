@@ -23,15 +23,19 @@ function LinearDeterminate() {
     const [progress, setProgress] = React.useState(0);
 
     React.useEffect(() => {
+        const startTime = Date.now();
+        const interval = 10; // Update every 10ms
+        const totalTime = 2500; // Total time in ms
+
         const timer = setInterval(() => {
-            setProgress((oldProgress) => {
-                if (oldProgress === 100) {
-                    return 0;
-                }
-                const diff = Math.random() * 10;
-                return Math.min(oldProgress + diff, 100);
-            });
-        }, 500);
+            const elapsedTime = Date.now() - startTime;
+            const newProgress = (elapsedTime / totalTime) * 100;
+            setProgress(newProgress);
+
+            if (newProgress >= 100) {
+                clearInterval(timer);
+            }
+        }, interval);
 
         return () => {
             clearInterval(timer);
@@ -40,9 +44,7 @@ function LinearDeterminate() {
 
     return (
         <ThemeProvider theme={theme}>
-        <Box sx={{ width: '100%' }}>
             <LinearProgress color="primary" variant="determinate" value={progress} />
-        </Box>
         </ThemeProvider>
     );
 }

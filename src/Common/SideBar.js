@@ -1,6 +1,6 @@
 import { Menu, Button, Dropdown } from 'antd';
 import { UserOutlined, CalendarOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DashboardIcon from '../Assets/NavBar Assets/dashboardicon2.png';
 import FlowsIcon from '../Assets/NavBar Assets/flowsicon.png';
 import StrategiesIcon from '../Assets/NavBar Assets/strategyicon.png';
@@ -12,11 +12,10 @@ import PlannerIcon3 from '../Assets/NavBar Assets/PlannerIcon3.png';
 import PlannerIcon4 from '../Assets/NavBar Assets/PlannerIcon4.png';
 import ReportsIcon1 from '../Assets/NavBar Assets/ReportsIcon1.png';
 import ReportsIcon2 from '../Assets/NavBar Assets/ReportsIcon2.png';
-
-
-
-
 import { useNavigate } from 'react-router-dom';
+import Container from "react-bootstrap/Container";
+import styled from "styled-components";
+import InitialsAvatar from "react-initials-avatar";
 
 
 
@@ -26,22 +25,61 @@ const SidebarMenu = () => {
 
     const [selectedKeys, setSelectedKeys] = useState(['mail']);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [userData, setUserData] = useState({
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        industry: '',
+        email: '',
+        companyName:''
+    });
+
 
 
     const handleMenuItemClick = ({ key }) => {
         setSelectedKeys([]);
     };
 
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+
+        fetch('http://localhost:4000/api/get/userinfo', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Assuming the response data structure matches the keys in userData
+                setUserData(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching user info:', error);
+            });
+    }, []);
+
 
     const navigate = useNavigate();
 
-
+    const StyledInitialsAvatar = styled(InitialsAvatar)`
+    border-radius: 12px;
+    font-size: 1.5rem;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #A7A7A7 ;
+    color: white;
+`;
 
 
     return (
+        <Container>
         <Menu
             mode="inline"
-            style={{ width: 256, position: 'fixed', top: 71, left: 0 }}
+            style={{ width: 256, position: 'fixed', top: 60, left: 0 }}
             selectedKeys={selectedKeys}
             onClick={handleMenuItemClick}
         >
@@ -67,12 +105,6 @@ const SidebarMenu = () => {
 
                 </Menu.Item>
 
-                <Menu.Item onClick={() => navigate('../scheduler', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={PlannerIcon} style={{marginLeft:15, height: 25}} />}>
-
-                    <span style={{ marginLeft: '10px' }}>Scheduler</span>
-
-                </Menu.Item>
 
                 {/*<Menu.Item onClick={() => navigate('../custommetrics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
                            icon={<img src={CustomMetricsIcon} style={{marginLeft:16, height: 24}} />}>
@@ -149,20 +181,15 @@ const SidebarMenu = () => {
                     placement={'topRight'}
                 >
                     <div style={{ display: 'flex', alignItems:'center'}}>
-                        <img
-                            src={require('../Assets/Singup/tik-tok-tiktok-logo-app-trend-1.png')}
-                            alt="Profile"
-                            style={{
-                                width: 32,
-                                height: 32,
-                                borderRadius: '50%',
-                                marginRight: 8,
-                            }}
-                        />
+                        <div style={{marginRight: "1rem"}}>
+                            <StyledInitialsAvatar
+                                name={userData.firstName}
+                            />
+                        </div>
                         <div style={{lineHeight: 1, marginLeft:10,display: 'flex', flexDirection: 'column' }}>
-                            <span style={{ maxWidth:150,whiteSpace: "nowrap", overflow:"hidden",textOverflow:"ellipsis", fontWeight:"bold", marginBottom:5 }}>John DoeDoeDoeDoeDoeDoe</span>
+                            <span style={{ maxWidth:150,whiteSpace: "nowrap", overflow:"hidden",textOverflow:"ellipsis", fontWeight:"bold", marginBottom:5 }}>{userData.firstName} {userData.lastName}</span>
                             <span style={{ fontSize: '12px', color: 'rgba(0, 0, 0, 0.45)' }}>
-                            Oldschoolee LTD
+                            {userData.companyName}
                             </span>
                         </div>
                     </div>
@@ -170,6 +197,7 @@ const SidebarMenu = () => {
             </Menu.Item>
 
         </Menu>
+        </Container>
     );
 };
 

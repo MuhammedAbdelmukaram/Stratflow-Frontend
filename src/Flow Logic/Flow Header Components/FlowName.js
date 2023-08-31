@@ -20,7 +20,7 @@ const FlowName = () => {
     return (
         <div style={{ position: 'relative', width: 189 }}>
             {isEditing ? (
-                <input type="text" value={text} onChange={handleInputChange} onBlur={handleInputBlur} />
+                <input type="text" value={text} onChange={handleInputChange} onBlur={handleInputBlur} /> //This input
             ) : (
                 <div
                     onClick={handleEditClick}
@@ -36,7 +36,7 @@ const FlowName = () => {
                         position: 'relative', // add this
                     }}
                 >
-                    {text || 'Type something here...'}
+                    {text || 'Your flow name...'}
                     <div style={{ position: 'absolute', right: '4px', bottom: '4px' }}>
                         <FaEdit />
                     </div>

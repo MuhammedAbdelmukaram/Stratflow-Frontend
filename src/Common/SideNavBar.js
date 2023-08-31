@@ -95,7 +95,7 @@ const SideNavBar = () => {
             <div className="dropdown-button"  onClick={toggleDropdown}>
                 <div style={{ display: 'flex', alignItems:'center'}}>
                     <img
-                        src={require('../Assets/Singup/tik-tok-tiktok-logo-app-trend-1.png')}
+                        src={require('../Assets/Singup/TikTokLogo.png')}
                         alt="Profile"
                         style={{
                             width: 32,

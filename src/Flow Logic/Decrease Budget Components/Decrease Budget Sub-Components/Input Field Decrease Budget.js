@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 
 
-const InputFieldDecreaseBudget = () => {
-    const [value, setValue] = useState('');
-    const [isPercentage, setIsPercentage] = useState(false);
+const InputFieldDecreaseBudget = ({ value, isPercentage, onChange, onToggle }) => {
 
-    const handleInputChange = (event) => {
-        setValue(event.target.value);
-    };
+
 
     const handleToggleChange = () => {
-        setIsPercentage(!isPercentage);
+        onToggle(!isPercentage);
     };
 
     return (
@@ -18,7 +14,7 @@ const InputFieldDecreaseBudget = () => {
             <input
                 type="text"
                 value={value}
-                onChange={handleInputChange}
+                onChange={onChange}
                 style={{
                     width: '70px',
                     height: '20px',

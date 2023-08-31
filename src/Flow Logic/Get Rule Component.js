@@ -5,18 +5,18 @@ import PauseComponent from "./Pause Components/Pause Component";
 import NotifyComponent from "./Notify Components/Notify Component";
 
 
-const getRuleComponent = (rule) => {
-    const type = rule.type.name;
+const getRuleComponent = (node) => {
+    const type = node.type;
     switch (type) {
-        case 'IfRule':
+        case 'IF_RULE':
             return IfRuleComponent;
-        case 'IncreaseBudget':
+        case 'INCREASE_BUDGET':
             return IncreaseBudgetComponent;
-        case 'DecreaseBudget':
+        case 'DECREASE_BUDGET':
             return DecreaseBudgetComponent;
-        case 'Pause':
+        case 'PAUSE':
             return PauseComponent;
-        case 'Notify':
+        case 'NOTIFY':
             return NotifyComponent;
         default:
             return null;

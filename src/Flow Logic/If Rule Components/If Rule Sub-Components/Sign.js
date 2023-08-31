@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const Sign = () => {
+const Sign = ({ updateSignValue, nodeID, nodeSign}) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(nodeSign);
 
     const handleMenuClick = () => {
         setIsMenuOpen((prevState) => !prevState);
@@ -11,6 +11,7 @@ const Sign = () => {
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
         setIsMenuOpen(false);
+        updateSignValue(nodeID, option);
     };
 
     const renderOption = (option) => (

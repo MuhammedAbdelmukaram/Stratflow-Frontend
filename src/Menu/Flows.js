@@ -1,230 +1,27 @@
-import React, { useState } from 'react';
-import {Button, Col, Container, Form, Modal, OverlayTrigger, Pagination, Row, Tooltip} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Col, Container, OverlayTrigger, Pagination, Row, Tooltip} from "react-bootstrap";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import {Input, Switch} from 'antd';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../Assets/CSS/Flows/Flows.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    addFlow,
-    removeFlow,
-    updateFlow,
-    setSearchTerm,
-    setFilter,
-    setFlows,
-    setGroups,
-    setSelectedGroup,
-    setCurrentPage,
-    toggleActive,
-} from '../../src/FlowsSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCurrentPage, setFilter, setFlows, setSearchTerm, setSelectedGroup,} from '../Redux/FlowsSlice';
+import axios from "axios";
+import EditButton from "./Flows Components/Edit Button";
+import DuplicateButton from "./Flows Components/Duplicate Button";
+import FlowDeleteButton from "./Flows Components/Delete Button";
+import CreateFlow from "./Flows Components/Create Flow";
+import ChangeStatusButton from "./Flows Components/Change Status";
 
 
-const EditButton = ({flow, onRename}) => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    return (
-        <>
-            <button className={"flow-edit-button"}
-                    style={{
-                        height:20,
-                        width:20,
-                        border: "none",
-                        backgroundColor: "transparent",
-                        padding:0,
-                    }}
-            onClick={handleShow}>
-                <img src={require("../Assets/Flows Assets/EditIcon.png")}
-                     className="button-icon"
-                     alt="edit icon"
-                     height="20"
-                     width="20" />
-
-            </button>
-
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Flow</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Rename the flow:
-
-                    <Input placeholder="Flow Name" required />
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" style={{backgroundColor:"#06AD85", borderColor:"#06AD85"}} onClick={handleClose}>
-                        Duplicate
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    );
-};
-const DuplicateButton = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    return (
-        <>
-            <button
-                className={"flow-duplicate-button"}
-                style={{
-                    height: 20,
-                    width: 20,
-                    border: "none",
-                    backgroundColor: "transparent",
-                    padding: 0,
-                    marginLeft: 5,
-                }}
-                onClick={handleShow}
-            >
-                <img
-                    src={require("../Assets/Flows Assets/DuplicateIcon.png")}
-                    className="button-icon"
-                    alt="duplicate icon"
-                    height="20"
-                    width="20"
-                />
-            </button>
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Duplicate Flow</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Name of duplicated flow:
-
-                        <Input placeholder="Flow Name" required />
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" style={{backgroundColor:"#06AD85", borderColor:"#06AD85"}} onClick={handleClose}>
-                        Duplicate
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    );
-};
-
-const FlowDeleteButton = (id) => {
-    const [show, setShow] = useState(false);
-    const dispatch = useDispatch();
-
-    const handleClose = () => setShow(false);
+const Flows = () => {
 
 
-    const handleDelete = () => {
-        dispatch(removeFlow(id.id)); // Dispatch the removeFlow action
-
-    };
-
-    const handleShow = () => setShow(true);
-
-    return (
-        <>
-            <button
-                className={"flow-delete-button"}
-                style={{
-                    height: 20,
-                    width: 20,
-                    border: "none",
-                    backgroundColor: "transparent",
-                    padding: 0,
-                    marginLeft: 5,
-                }}
-                onClick={handleShow}
-            >
-                <img
-                    src={require("../Assets/Flows Assets/TrashIcon.png")}
-                    className="button-icon"
-                    alt="delete icon"
-                    height="17"
-                    width="17"
-                />
-            </button>
-
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Delete Flow</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Do you really want to delete this flow? This process cannot be undone.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    );
-};
-
-
-function CreateFlow() {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const navigate = useNavigate();
-
-
-    return (
-        <>
-            <Button className="btn btn-create-flow-button" onClick={handleShow}>Create Flow</Button>
-
-            <Modal size={"lg"} show={show} onHide={handleClose} centered>
-                <Modal.Body>
-                    <p className="modal-title">Create Flow</p>
-                    <hr className="modal-hr"/>
-                    <p className="modal-note">NOTE: You can always choose a strategy and tailor it to your need</p>
-
-
-                    <div className="flex-container">
-                        <div>
-                            <Button onClick={() => navigate('../flowlogic', { replace: true })} variant="text" size="small"  className="image-button">
-                                <img
-                                    src={require("../Assets/Strategies Assets/CreateScratch.png")}
-                                    alt="CreateScratch"
-                                    className="image"
-                                />
-                            </Button>
-                            <p className="image-text">From Scratch</p>
-                        </div>
-
-                        <div>
-                            <Button  onClick={() => navigate('../strategies', { replace: true })} variant="text" size="small"  className="image-button">
-                                <img
-                                    src={require("../Assets/Strategies Assets/UseStrategy.png")}
-                                    alt="CreateScratch"
-                                    className="image"
-                                />
-                            </Button>
-                            <p className="image-text">Use Staregies</p>
-                        </div>
-                    </div>
-
-                </Modal.Body>
-
-            </Modal>
-        </>
-    );
-}
-const Flows = () => {
 
     const dispatch = useDispatch();
 
@@ -235,7 +32,44 @@ const Flows = () => {
     const currentPage = useSelector(state => state.flows.currentPage);
 
 
+    useEffect(() => {
+        // Get the token from localStorage
+        const token = localStorage.getItem('accessToken'); // Replace with the actual key you're using
 
+        // Create headers with the token
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+
+        // Make API request to fetch flows from backend
+        axios.get('http://localhost:4000/api/flows', { headers }) // Update the endpoint to match your backend API
+            .then(response => {
+                const fetchedFlows = response.data; // Assuming the API response is an array of flows
+
+                console.log(response.data);
+
+                const formattedFlows = fetchedFlows.map(apiFlow => ({
+                    group: apiFlow.rootNode.group,
+                    id: apiFlow._id,
+                    name: apiFlow.rootNode.name,
+                    active: apiFlow.rootNode.status === 'active',
+                    triggered: apiFlow.rootNode.triggered,
+                    // Add other properties you need to map here
+                }));
+
+                console.log(formattedFlows);
+                dispatch(setFlows(formattedFlows));
+            })
+            .catch(error => {
+                console.error('Error fetching flows:', error);
+            });
+    }, []);
+
+
+    const handleFlowClick = (flowId) => {
+        // For example, you can navigate to the flow details page
+        navigate(`/flowlogic/${flowId}`); // Update the URL pattern according to your application
+    };
 
     const filteredFlows = flows.filter((flow) => {
         if (selectedGroup === null) {
@@ -274,21 +108,12 @@ const Flows = () => {
         dispatch(setCurrentPage(pageNum));
     };
 
+
     const handleFilterChange = (value) => {
         dispatch(setFilter(value));
         dispatch(setCurrentPage(1)); // Reset the current page when filter changes
     };
 
-    const handleStatusChange = (id) => {
-        dispatch(setFlows(
-            flows.map((flow) => {
-                if (flow.id === id) {
-                    return { ...flow, active: !flow.active };
-                }
-                return flow;
-            })
-        ));
-    };
 
     const handleSearchChange = (e) => {
         dispatch(setSearchTerm(e.target.value));
@@ -315,7 +140,7 @@ const Flows = () => {
         <Container>
             <Row >
             <Col style={{maxWidth:140, minHeight:"100vh", borderRight:"1px solid #E5E5E5"}}>
-                <h4>Groups</h4>
+                <h4 style={{marginTop:20}}>Groups</h4>
                 <ButtonGroup toggle className="mb-2"
                 style={{display:"flex", flexDirection:"column"}}>
                     <ToggleButton
@@ -360,7 +185,7 @@ const Flows = () => {
 
             <Col style={{marginTop:10}}>
             <div className="flows">
-                <div className="flows-container">
+                <div className="flows-container" style={{marginLeft:10}}>
                     <h3 className="flows-title">Flows</h3>
                     <div className="flows-search-container">
                         <input
@@ -373,7 +198,7 @@ const Flows = () => {
 
                         <div className="flows-filter-container" >
                             <CreateFlow/>
-                            <ButtonGroup toggle>
+                            <ButtonGroup style={{marginLeft:20}} toggle>
                                 <ToggleButton
                                     className={`flows-filter-all-flows ${filter === 'All rules' ? 'active' : ''}`}
                                     type="radio"
@@ -389,6 +214,7 @@ const Flows = () => {
                                     type="radio"
                                     variant="secondary"
                                     name="filter"
+                                    style={{marginLeft:4}}
                                     value="Active"
                                     className={`flows-filter-active ${filter === 'Active' ? 'active' : ''}`}
                                     checked={filter === 'Active'}
@@ -406,6 +232,7 @@ const Flows = () => {
                                         type="radio"
                                         variant="secondary"
                                         name="filter"
+                                        style={{marginLeft:4}}
                                         value="Triggered"
                                         checked={filter === 'Triggered'}
                                         onClick={() => handleFilterChange('Triggered')}
@@ -436,22 +263,18 @@ const Flows = () => {
                                 borderBottom: "1px solid #E5E5E5",}}
 
                                  key={flow.id}>
-                                <input className="flow-checkbox" type="checkbox" style={{marginRight: "30px"}}/>
-                                <Switch
-                                    className={"flow-status-switch"}
-                                    style={{backgroundColor: flow.active ? '#06AD85' : '#3A3A3A', marginRight: "30px"}}
-                                    type="checkbox"
-                                    checked={flow.active}
-                                    onChange={() => handleStatusChange(flow.id)}
-                                />
-                                <div className="flow-info-container" style={{textAlign: "center"}}>
-                                    <div className="flow-name">{flow.name}</div>
-                                    <div className="flow-id">{flow.id}</div>
+
+                                <ChangeStatusButton id={flow.id} initialStatus={flow.active}/>
+
+                                <div className="flow-info-container" style={{textAlign: "flex-start"}}>
+                                    <div className="flow-name" style={{cursor:"pointer"}} onClick={() => handleFlowClick(flow.id)}>
+                                        {flow.name}
+                                    </div>
+                                    <div className="flow-id" style={{color:"#bbbbbb", fontSize:12}}><span style={{fontWeight:600}}>ID:</span> {flow.id}</div>
                                 </div>
                                 <div className="flow-actions-container" style={{marginLeft: "auto"}}>
 
-                                    <EditButton/>
-                                    <DuplicateButton/>
+                                    <EditButton id={flow.id}/>
                                     <FlowDeleteButton id={flow.id}/>
 
 

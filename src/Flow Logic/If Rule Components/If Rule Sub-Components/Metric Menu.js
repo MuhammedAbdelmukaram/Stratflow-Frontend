@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import {
+    appInstallMetrics, attributionMetrics,
+    basicDataMetrics,
+    engagementMetrics,
+    interactiveAddOnMetrics, liveMetrics, offlineMetrics, onsiteMetrics, pageEventMetrics,
+    videoPlayMetrics
+} from "../../../Assets/FlowLogic Assets/Metrics/Metrics";
 
 
 const ArrowDown = {
@@ -10,19 +17,47 @@ const ArrowDown = {
 };
 
 
-
 const categories = [
     {
-        name: 'Interactive Add-Ons',
-        items: ['Total Cost', 'Item 2', 'Item 3'],
+        name: 'Basic data',
+        items: basicDataMetrics,
     },
     {
-        name: 'Category 2',
-        items: ['Item 4', 'Item 5', 'Item 6'],
+        name: 'Video play',
+        items: videoPlayMetrics,
     },
     {
-        name: 'Category 3',
-        items: ['Item 7', 'Item 8', 'Item 9'],
+        name: 'Engagement',
+        items: engagementMetrics,
+    },
+    {
+        name: 'Interactive add-on',
+        items: interactiveAddOnMetrics,
+    },
+    {
+        name: 'LIVE metrics',
+        items: liveMetrics,
+    },
+    {
+        name: 'In-App event',
+        items: appInstallMetrics,
+    },
+    {
+        name: 'Onsite event',
+        items: onsiteMetrics,
+    },
+    {
+        name: 'Page event',
+        items: pageEventMetrics,
+    },
+    {
+        name: 'Attribution',
+        items: attributionMetrics,
+    },
+
+    {
+        name: 'Offline event',
+        items: offlineMetrics,
     },
 ];
 
@@ -87,9 +122,9 @@ const CategoryMenu = ({ categories, onCategorySelect, onItemSelected }) => {
     );
 };
 
-const MetricMenu = () => {
+const MetricMenu = ({updateNodeMetric, nodeID, nodeMetric}) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(nodeMetric);
 
     const handleMenuClick = () => {
         setIsMenuOpen((prevState) => !prevState);
@@ -102,6 +137,9 @@ const MetricMenu = () => {
     const handleItemSelected = (item) => {
         setSelectedItem(item);
         setIsMenuOpen(false);
+
+        // When a metric is selected, update the node's metric value
+        updateNodeMetric(nodeID, item);
     };
 
     return (

@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 
-const InputWithToggle = () => {
-    const [value, setValue] = useState('');
-    const [isPercentage, setIsPercentage] = useState(false);
+const InputWithToggle = ({updateNodeValue, updateNodePercentage, nodeID, nodeValue, nodePercentage}) => {
+    const [value, setValue] = useState(nodeValue);
+    const [isPercentage, setIsPercentage] = useState(nodePercentage);
 
     const handleInputChange = (event) => {
         setValue(event.target.value);
+        // Call the updateNodeValue function from the parent component with the updated value and node ID
+        updateNodeValue(nodeID, event.target.value);
     };
 
     const handleToggleChange = () => {
-        setIsPercentage(!isPercentage);
+        // Toggle the isPercentage state locally
+        setIsPercentage((prevIsPercentage) => !prevIsPercentage);
+        // Call the updateNodePercentage function from the parent component with the updated percentage value and node ID
+        updateNodePercentage(nodeID, !isPercentage);
     };
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', marginLeft:20 }}>
             <input
                 type="text"
-                placeholder={"hey"}
+                placeholder={""}
                 value={value}
                 onChange={handleInputChange}
                 style={{
                     width: '70px',
                     border: `1px solid`,
+                    borderRadius:2,
                 }}
             />
             <div

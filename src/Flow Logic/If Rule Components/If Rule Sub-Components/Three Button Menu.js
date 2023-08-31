@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-function ThreeButtonMenu({ rule }) {
+function ThreeButtonMenu({ rule, onDelete  }) {
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', zIndex:3 }}>
             <img
                 src={require('../../../Assets/FlowLogic Assets/FlowMenu Icon.png')}
                 alt=""
@@ -18,11 +18,11 @@ function ThreeButtonMenu({ rule }) {
                     marginTop: 10,
                 }}
                 onClick={() => {
-                    const menu = document.getElementById(`menu-${rule.key}`);
+                    const menu = document.getElementById(`menu-${rule.id}`);
                     menu.classList.toggle('show');
                 }}
             />
-            <div id={`menu-${rule.key}`} className="menu">
+            <div id={`menu-${rule.id}`} className="menu">
                 <button
                     style={{
                         marginRight: 5,
@@ -54,6 +54,7 @@ function ThreeButtonMenu({ rule }) {
                         backgroundColor:"transparent",
                         fontSize:12
                     }}
+                    onClick={() => onDelete(rule.id)}
                 >
                     Delete
                 </button>
