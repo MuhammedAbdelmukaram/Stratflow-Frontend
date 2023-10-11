@@ -54,8 +54,8 @@ const IfRuleComponent = ({ rule, showAnalytics, rightSide, bottomSide, onDelete,
                         >
                             <IfVisualPart />
                             <MetricMenu updateNodeMetric={updateNodeMetric} nodeMetric={nodeMetric} nodeID={nodeID}/>
-                            <Sign updateSignValue={updateSignValue} nodeID={nodeID}/>
-                            <InputWithToggle updateNodeValue={updateNodeValue} updateNodePercentage={updateNodePercentage} nodeID={nodeID} nodePercentage={nodePercentage} />
+                            <Sign updateSignValue={updateSignValue} nodeID={nodeID} nodeSign={nodeSign}/>
+                            <InputWithToggle updateNodeValue={updateNodeValue} nodeValue={nodeValue} updateNodePercentage={updateNodePercentage} nodeID={nodeID} nodePercentage={nodePercentage} />
                             <ThreeButtonMenu rule={rule} onDelete={onDelete} />
                         </div>
                     ) : (

@@ -136,7 +136,7 @@ class Settings extends React.Component {
                                     />
                                 </div>
                                 <div>
-                                    <p>Oldschoolee LTD</p>
+                                    <p>MechaLabSolutions LTD</p>
                                     <Button style={{width:100,backgroundColor:"#06AD85",borderColor: "#06AD85"}} variant="secondary">Upload</Button>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@ const Flows = () => {
     useEffect(() => {
         // Get the token from localStorage
         const token = localStorage.getItem('accessToken'); // Replace with the actual key you're using
-
+        console.log(token);
         // Create headers with the token
         const headers = {
             Authorization: `Bearer ${token}`

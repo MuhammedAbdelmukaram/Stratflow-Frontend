@@ -107,7 +107,7 @@ const SideNavBar = () => {
                     <div style={{lineHeight: 1, marginLeft:10,display: 'flex', flexDirection: 'column' }}>
                         <span style={{ maxWidth:150,whiteSpace: "nowrap", overflow:"hidden",textOverflow:"ellipsis", fontWeight:"bold", marginBottom:5 }}>John DoeDoeDoeDoeDoeDoe</span>
                         <span style={{ fontSize: '12px', color: 'rgba(0, 0, 0, 0.45)' }}>
-                            Oldschoolee LTD
+                            MechaLabSolutions LTD
                             </span>
                     </div>
                 </div>

@@ -34,13 +34,16 @@ function App() {
                         <Route path="/login" element={<Login />} />
 
                         <Route element={<ProtectedRoute />}>
+
                             <Route
                                 path="/account"
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <MyAccount />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <MyAccount />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -49,8 +52,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Settings />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Settings />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -59,8 +64,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Billing />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Billing />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -70,8 +77,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Scheduler />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Scheduler />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -80,8 +89,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Integrations />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Integrations />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -90,8 +101,8 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
                                         <Provider store={store}>
+                                            <SidebarMenu />
                                             <Dashboard />
                                         </Provider>
                                     </>
@@ -102,8 +113,9 @@ function App() {
                                     element={
                                         <>
                                             <NavigationBar />
-                                            <SidebarMenu />
                                             <Provider store={store}>
+                                                <SidebarMenu />
+
                                                 <Flows />
                                             </Provider>
                                         </>
@@ -114,8 +126,10 @@ function App() {
 
                                 <Route path="/strategies" element={<>
                                     <NavigationBar />
-                                    <SidebarMenu />
-                                    <Strategies />
+                                    <Provider store={store}>
+                                        <SidebarMenu />
+                                        <Strategies />
+                                    </Provider>
                                 </>} />
 
                             <Route
@@ -123,8 +137,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <CustomMetrics />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <CustomMetrics />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -136,8 +152,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Analytics/>
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Analytics/>
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -146,8 +164,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Reports />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Reports />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -165,7 +185,9 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SideNavBar />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                        </Provider>
                                     </>
                                 }
                             />
@@ -174,8 +196,10 @@ function App() {
                                 element={
                                     <>
                                         <NavigationBar />
-                                        <SidebarMenu />
-                                        <Plans />
+                                        <Provider store={store}>
+                                            <SidebarMenu />
+                                            <Plans />
+                                        </Provider>
                                     </>
                                 }
                             />

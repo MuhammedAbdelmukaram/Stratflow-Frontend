@@ -16,8 +16,9 @@ import { useNavigate } from 'react-router-dom';
 import Container from "react-bootstrap/Container";
 import styled from "styled-components";
 import InitialsAvatar from "react-initials-avatar";
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedElement } from '../Redux/SidebarSlice.js';
+import {StyledInitialsAvatar} from '../Assets/CSS/SideNavBar/StyledInitialsAvatar'
 
 
 
@@ -25,6 +26,10 @@ const SidebarMenu = () => {
 
     const [selectedKeys, setSelectedKeys] = useState(['mail']);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dispatch = useDispatch();
+    const selectedElement = useSelector(state => state.sidebar.selectedElement);
+
+
     const [userData, setUserData] = useState({
         firstName: '',
         lastName: '',
@@ -37,8 +42,13 @@ const SidebarMenu = () => {
 
 
     const handleMenuItemClick = ({ key }) => {
+
         setSelectedKeys([]);
     };
+
+
+
+
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
@@ -62,17 +72,13 @@ const SidebarMenu = () => {
 
     const navigate = useNavigate();
 
-    const StyledInitialsAvatar = styled(InitialsAvatar)`
-    border-radius: 12px;
-    font-size: 1.5rem;
-    width: 46px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #A7A7A7 ;
-    color: white;
-`;
+
+    const navigateAndDispatch = (route) => {
+        dispatch(setSelectedElement(route)); // Dispatch the route name
+        navigate(route, { replace: true });
+
+    };
+
 
 
     return (
@@ -83,48 +89,76 @@ const SidebarMenu = () => {
             selectedKeys={selectedKeys}
             onClick={handleMenuItemClick}
         >
-            <div style={{ position: 'relative', marginTop:'20px'}}>
-
-                <Menu.Item onClick={() => navigate('../dashboard', { replace: true })}
-                           style={{ textAlign: 'left', height:48  }}
-                           icon={<img src={DashboardIcon} style={{marginLeft:12, height: 28}} />}>
+            <div style={{ position: 'relative', marginTop: '20px' }}>
+                <Menu.Item
+                    onClick={() => navigateAndDispatch('../dashboard')}
+                    style={{
+                        textAlign: 'left',
+                        height: 48,
+                        background: selectedElement === '../dashboard' ? '#e7fff4' : '', // Change the background color for the selected item
+                    }}
+                    icon={<img src={DashboardIcon} style={{ marginLeft: 12, height: 28 }} />}
+                >
                     <span style={{ marginLeft: '10px', fontSize: '14px' }}>Dashboard</span>
                 </Menu.Item>
 
-                <Menu.Item onClick={() => navigate('../flows', { replace: true })}
-                           style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={FlowsIcon} style={{marginLeft:12, height: 28}} />}>
+                <Menu.Item
+                    onClick={() => navigateAndDispatch('../flows')}
+                    style={{
+                        textAlign: 'left',
+                        height: 48,
+                        background: selectedElement === '../flows' ? '#e7fff4' : '', // Change the background color for the selected item
+                    }}
+                    icon={<img src={FlowsIcon} style={{ marginLeft: 12, height: 28 }} />}
+                >
                     <span style={{ marginLeft: '10px' }}>Flows</span>
-
                 </Menu.Item>
 
-                <Menu.Item onClick={() => navigate('../strategies', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={PlannerIcon} style={{marginLeft:15, height: 25}} />}>
-
+                <Menu.Item
+                    onClick={() => navigateAndDispatch('../strategies')}
+                    style={{
+                        textAlign: 'left',
+                        height: 48,
+                        background: selectedElement === '../strategies' ? '#e7fff4' : '', // Change the background color for the selected item
+                    }}
+                    icon={<img src={StrategiesIcon} style={{ marginLeft: 15, height: 25 }} />}>
                     <span style={{ marginLeft: '10px' }}>Strategies</span>
-
                 </Menu.Item>
 
+                <Menu.Item onClick={() => navigateAndDispatch('../scheduler')}
+                           style={{
+                               textAlign: 'left',
+                               height: 48,
+                               background: selectedElement === '../scheduler' ? '#e7fff4' : '', // Change the background color for the selected item
+                           }}
+                           icon={<img src={CustomMetricsIcon} style={{ marginLeft: 16, height: 24 }} />}>
+                    <span style={{ marginLeft: '10px' }}>Scheduler</span>
+                </Menu.Item>
 
-                {/*<Menu.Item onClick={() => navigate('../custommetrics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={CustomMetricsIcon} style={{marginLeft:16, height: 24}} />}>
-
+                <Menu.Item onClick={() => navigateAndDispatch('../custommetrics')}
+                           style={{
+                                textAlign: 'left',
+                                height: 48,
+                                background: selectedElement === '../custommetrics' ? '#e7fff4' : '', // Change the background color for the selected item
+                            }}
+                           icon={<img src={CustomMetricsIcon} style={{ marginLeft: 16, height: 24 }} />}>
                     <span style={{ marginLeft: '10px' }}>Custom Metrics</span>
-
-                </Menu.Item>*/}
-
-                <Menu.Item onClick={() => navigate('../analytics', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={ReportsIcon} style={{marginLeft:15, height: 25}} />}>
-
-                    <span style={{ marginLeft: '10px' }}>Analytics</span>
-
                 </Menu.Item>
 
-                <Menu.Item onClick={() => navigate('../reports', { replace: true })}  style={{ textAlign: 'left', height:48 }}
-                           icon={<img src={ReportsIcon1} style={{marginLeft:13, height: 27}} />}>
+                <Menu.Item onClick={() => navigateAndDispatch('../analytics')} style={{
+                    textAlign: 'left',
+                    height: 48,
+                    background: selectedElement === '../analytics' ? '#e7fff4' : '', // Change the background color for the selected item
+                }}  icon={<img src={ReportsIcon} style={{ marginLeft: 15, height: 25 }} />}>
+                    <span style={{ marginLeft: '10px' }}>Analytics</span>
+                </Menu.Item>
 
+                <Menu.Item onClick={() => navigateAndDispatch('../reports')} style={{
+                    textAlign: 'left',
+                    height: 48,
+                    background: selectedElement === '../reports' ? '#e7fff4' : '', // Change the background color for the selected item
+                }}  icon={<img src={ReportsIcon1} style={{ marginLeft: 13, height: 27 }} />}>
                     <span style={{ marginLeft: '10px' }}>Reports</span>
-
                 </Menu.Item>
             </div>
 
